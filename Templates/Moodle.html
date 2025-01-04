@@ -1,0 +1,74 @@
+{% extends "Base.html" %}
+
+{% block title %}Moodle Dashboard{% endblock %}
+
+{% block content %}
+<h2>Moodle Dashboard</h2>
+
+<!-- Student List -->
+<h3>Registered Students</h3>
+<table class="student-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for student in students %}
+        <tr>
+            <td>{{ student['Name'] }}</td>
+            <td>{{ student['Email'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Plugin-Like Button to Calendar -->
+<div class="calendar-plugin">
+    <button onclick="redirectToCalendar()">Go to Event Calendar</button>
+</div>
+
+<script>
+    function redirectToCalendar() {
+        window.location.href = '/';
+    }
+</script>
+
+<style>
+    .student-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    .student-table th, .student-table td {
+        border: 1px solid #bf3029;
+        padding: 10px;
+        text-align: center;
+    }
+    .student-table th {
+        background-color: #bf3029;
+        color: white;
+    }
+    .student-table td {
+        background-color: #f9f9f9;
+    }
+
+    .calendar-plugin {
+        margin: 20px;
+        text-align: center;
+    }
+    .calendar-plugin button {
+        padding: 10px 20px;
+        background-color: #bf3029;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1em;
+        cursor: pointer;
+    }
+    .calendar-plugin button:hover {
+        background-color: #9f2423;
+    }
+</style>
+{% endblock %}

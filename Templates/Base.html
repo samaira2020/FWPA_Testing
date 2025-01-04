@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Modul University{% endblock %}</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Content Container */
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .header {
+            background-color: #bf3029;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            object-fit: contain;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Navigation Bar */
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            background-color: #bf3029;
+            padding: 10px 0;
+            width: 100%;
+        }
+
+        .nav-bar a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-bar a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 8px;
+            overflow: auto;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #bf3029;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            width: 100%;
+        }
+
+        .footer a {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 1024px) {
+            .content-wrapper {
+                padding: 15px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .content-wrapper {
+                padding: 10px;
+            }
+
+            .nav-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-bar a {
+                width: 100%;
+                text-align: center;
+                margin: 5px 0;
+            }
+
+            .header {
+                padding: 30px 15px;
+            }
+
+            .logo {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 15px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .content-wrapper {
+                padding: 5px;
+            }
+
+            .header {
+                padding: 20px 10px;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+        }
+
+        .user-info {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            z-index: 100;
+            min-width: 200px;
+        }
+
+        .user-info:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-info i {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+
+        .user-info span {
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            text-align: left;
+            flex: 1;
+        }
+
+        @media screen and (max-width: 768px) {
+            .user-info {
+                top: 10px;
+                right: 10px;
+                font-size: 14px;
+                padding: 6px 12px;
+            }
+
+            .user-info i {
+                font-size: 20px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    {% block styles %}
+    {% endblock %}
+</head>
+<body>
+    <div class="header">
+        {% if session.get('admin_email') or session.get('staff_email') or session.get('student_email') %}
+        <div class="user-info">
+            <i class="fas fa-user-circle"></i>
+            <span>
+                Welcome, 
+                {% if session.get('admin_email') %}
+                    {{ session.get('admin_name', 'Admin') }}
+                {% elif session.get('staff_email') %}
+                    {{ session.get('staff_name', 'Staff Member') }}
+                {% elif session.get('student_email') %}
+                    {{ session.get('student_name', 'Student') }}
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
+        <img src="{{ url_for('static', filename='MULogo.png') }}" alt="Modul University Logo" class="logo">
+        <div class="header-content">
+            <h1>Modul University</h1>
+        </div>
+    </div>
+
+    <div class="nav-bar">
+        {% if session.get('admin_email') %}
+            <a href="{{ url_for('admin_dashboard') }}">Manage Events</a>
+            <a href="{{ url_for('admin_requests') }}">Event Requests</a>
+            <a href="{{ url_for('homepage') }}">Calendar</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% elif session.get('staff_email') %}
+            <a href="{{ url_for('homepage') }}">Calendar</a>
+            <a href="{{ url_for('event_details') }}">Event Details</a>
+            <a href="{{ url_for('staff_dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% elif session.get('student_email') %}
+            <a href="{{ url_for('homepage') }}">Calendar</a>
+            <a href="{{ url_for('event_details') }}">Event Details</a>
+            <a href="{{ url_for('student_dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('request_event') }}">Request Event</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+        {% endif %}
+    </div>
+
+    <div class="content-wrapper">
+        <div class="main-content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2024 Modul University. All rights reserved. For inquiries, contact 
+        <a href="mailto:support@modul.ac.at">support@modul.ac.at</a>.
+    </div>
+</body>
+</html>

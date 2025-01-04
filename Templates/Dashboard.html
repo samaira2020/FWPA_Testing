@@ -1,0 +1,59 @@
+{% extends "Base.html" %}
+
+{% block title %}Dashboard - Modul University{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Favourite Events</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in favourites %}
+            <tr>
+                <td>{{ event.event_name }}</td>
+                <td>{{ event.event_date }}</td>
+                <td>{{ event.category }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('remove_favourite') }}">
+                        <input type="hidden" name="event_name" value="{{ event.event_name }}">
+                        <button type="submit" class="action-btn">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    h2 {
+        color: #bf3029;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .action-btn {
+        width: auto;
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+</style>
+{% endblock %}

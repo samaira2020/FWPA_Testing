@@ -1,0 +1,128 @@
+{% extends "Base.html" %}
+
+{% block title %}Request Event - Modul University{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Request Event</h1>
+    <form method="POST" class="event-form">
+        <input type="text" name="event_name" placeholder="Event Name" required>
+        <input type="date" name="event_date" required>
+        <input type="time" name="event_time" required>
+        <input type="text" name="event_location" placeholder="Location" required>
+        <textarea name="event_description" placeholder="Description" required></textarea>
+        <input type="text" name="contact_information" placeholder="Contact Information" required>
+        <select name="event_type" required>
+            <option value="" disabled selected>Select Event Type</option>
+            <option value="Modul Events">Modul Events</option>
+            <option value="Club Events">Club Events</option>
+            <option value="External Events">External Events</option>
+            <option value="MCC Events">MCC Events</option>
+        </select>
+        <button type="submit">Request Event</button>
+    </form>
+</div>
+
+<style>
+    .form-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        color: #bf3029;
+        text-align: center;
+        font-size: 36px;
+        margin-bottom: 30px;
+    }
+
+    .event-form {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    input, select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    textarea {
+        height: 120px;
+        resize: vertical;
+    }
+
+    select {
+        background-color: white;
+        cursor: pointer;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background-color: #bf3029;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background-color: #a62922;
+    }
+
+    /* Remove default date and time picker styling */
+    input[type="date"], input[type="time"] {
+        appearance: none;
+        -webkit-appearance: none;
+        padding: 12px;
+    }
+
+    /* Placeholder text */
+    ::placeholder {
+        color: #666;
+    }
+
+    @media screen and (max-width: 768px) {
+        .request-form {
+            max-width: 100%;
+            padding: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .request-form input,
+        .request-form select,
+        .request-form textarea {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .submit-btn {
+            padding: 10px;
+            font-size: 14px;
+        }
+    }
+</style>
+
+<script>
+    // Set default date to today
+    document.querySelector('input[type="date"]').valueAsDate = new Date();
+</script>
+{% endblock %}

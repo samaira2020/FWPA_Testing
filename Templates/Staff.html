@@ -1,0 +1,29 @@
+{% extends "Base.html" %}
+
+{% block title %}Staff Dashboard - Modul University{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Welcome, {{ staff.Name if staff else "Staff Member" }}</h2>
+    <div class="favorites-grid">
+        {% for event in favourites %}
+        <!-- Keep existing favorite events content -->
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    /* Keep other existing styles */
+</style>
+{% endblock %}

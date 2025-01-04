@@ -1,0 +1,44 @@
+{% extends "Base.html" %}
+
+{% block title %}Student Dashboard - Modul University{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>My Favourite Events</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for favourite in favourites %}
+            <tr>
+                <td>{{ favourite.event_name }}</td>
+                <td>{{ favourite.event_date }}</td>
+                <td>{{ favourite.category }}</td>
+                <td>{{ favourite.location }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    /* Keep other existing styles */
+</style>
+{% endblock %}

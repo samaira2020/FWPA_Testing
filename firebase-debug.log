@@ -1,0 +1,13 @@
+[debug] [2025-01-02T20:23:46.067Z] ----------------------------------------------------------------------
+[debug] [2025-01-02T20:23:46.069Z] Command:       /opt/homebrew/Cellar/node/23.4.0/bin/node /opt/homebrew/bin/firebase login
+[debug] [2025-01-02T20:23:46.069Z] CLI Version:   13.29.1
+[debug] [2025-01-02T20:23:46.069Z] Platform:      darwin
+[debug] [2025-01-02T20:23:46.069Z] Node Version:  v23.4.0
+[debug] [2025-01-02T20:23:46.069Z] Time:          Thu Jan 02 2025 21:23:46 GMT+0100 (Central European Standard Time)
+[debug] [2025-01-02T20:23:46.069Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-01-02T20:23:46.070Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[info] i  Firebase optionally collects CLI and Emulator Suite usage and error reporting information to help improve our products. Data is collected in accordance with Google's privacy policy (https://policies.google.com/privacy) and is not used to identify you.
+ 
+[debug] [2025-01-02T20:23:46.459Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2025-01-02T20:23:46.459Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}

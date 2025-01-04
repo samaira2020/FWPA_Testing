@@ -1,0 +1,188 @@
+{% extends "Base.html" %}
+
+{% block title %}Feedback - Modul University{% endblock %}
+
+{% block content %}
+<div class="feedback-container">
+    <div class="feedback-card">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h2>Thank You!</h2>
+        <p class="message">Your event request has been submitted successfully. You will be notified of its approval or rejection soon.</p>
+        
+        <div class="contact-section">
+            <h3>Our Contact Information</h3>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <div class="contact-details">
+                        <span class="label">Email</span>
+                        <span class="value">ssc@modul.ac.at</span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <div class="contact-details">
+                        <span class="label">Phone</span>
+                        <span class="value">+43 (1) 320 35 55 120</span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="contact-details">
+                        <span class="label">Location</span>
+                        <span class="value">Am Kahlenberg 1, Vienna, Austria 1190</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-button">
+            <a href="{{ url_for('homepage') }}" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Back to Calendar
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .feedback-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 200px);
+        padding: 20px;
+        background-color: #f8f9fa;
+    }
+
+    .feedback-card {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        padding: 40px;
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .success-icon {
+        color: #28a745;
+        font-size: 64px;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        color: #bf3029;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .message {
+        color: #666;
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 40px;
+    }
+
+    .contact-section {
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 1px solid #eee;
+    }
+
+    h3 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 25px;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        transition: transform 0.2s;
+    }
+
+    .contact-item:hover {
+        transform: translateX(5px);
+    }
+
+    .contact-item i {
+        color: #bf3029;
+        font-size: 24px;
+        width: 30px;
+    }
+
+    .contact-details {
+        text-align: left;
+        flex: 1;
+    }
+
+    .label {
+        display: block;
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .value {
+        color: #333;
+        font-weight: 500;
+    }
+
+    .back-button {
+        margin-top: 40px;
+    }
+
+    .btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 24px;
+        background-color: #bf3029;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: opacity 0.3s;
+    }
+
+    .btn-back:hover {
+        opacity: 0.9;
+    }
+
+    @media (max-width: 768px) {
+        .feedback-card {
+            padding: 30px 20px;
+        }
+
+        .success-icon {
+            font-size: 48px;
+        }
+
+        h2 {
+            font-size: 28px;
+        }
+
+        .message {
+            font-size: 16px;
+        }
+
+        .contact-item {
+            padding: 12px;
+        }
+    }
+</style>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}

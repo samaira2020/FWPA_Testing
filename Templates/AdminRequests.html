@@ -1,0 +1,158 @@
+{% extends "Base.html" %}
+
+{% block title %}Event Requests - Modul University{% endblock %}
+
+{% block content %}
+<div class="admin-container">
+    <h1>Pending Event Requests</h1>
+    <div class="requests-grid">
+        {% for event in requested_events %}
+        <div class="event-card">
+            <div class="event-header" style="background-color: {{ event.type_of_event | get_event_color }}">
+                {{ event.event_name }}
+            </div>
+            <div class="event-content">
+                <p>
+                    <span class="label">📅 Date:</span>
+                    {% if event.event_date %}
+                        {{ event.event_date|format_date }}
+                    {% else %}
+                        No date specified
+                    {% endif %}
+                </p>
+                <p>
+                    <span class="label">📍 Location:</span>
+                    {{ event.location }}
+                </p>
+                <p>
+                    <span class="label">🏷️ Type:</span>
+                    {{ event.type_of_event }}
+                </p>
+                <p>
+                    <span class="label">📝 Description:</span>
+                    {{ event.description }}
+                </p>
+                <p>
+                    <span class="label">📧 Contact:</span>
+                    {{ event.contact_information }}
+                </p>
+                <div class="action-buttons">
+                    <form method="POST" action="{{ url_for('manage_event_request', event_id=event._id, action='approve') }}" style="display: inline;">
+                        <button type="submit" class="approve-btn">Approve</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('manage_event_request', event_id=event._id, action='decline') }}" style="display: inline;">
+                        <button type="submit" class="decline-btn">Decline</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p class="no-requests">No pending requests</p>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .admin-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .requests-grid {
+        flex: 1;
+        overflow: auto;
+    }
+
+    h1 {
+        color: #bf3029;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .event-card {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .event-header {
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 10px;
+        border-radius: 8px 8px 0 0;
+        margin-bottom: 20px;
+    }
+
+    .event-content p {
+        margin: 8px 0;
+        color: #666;
+    }
+
+    .action-buttons {
+        margin-top: 15px;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+    }
+
+    .approve-btn, .decline-btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        color: white;
+        transition: opacity 0.3s;
+    }
+
+    .approve-btn {
+        background-color: #28a745;
+    }
+
+    .decline-btn {
+        background-color: #dc3545;
+    }
+
+    .approve-btn:hover, .decline-btn:hover {
+        opacity: 0.9;
+    }
+
+    .no-requests {
+        text-align: center;
+        color: #666;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 6px;
+    }
+
+    @media screen and (max-width: 768px) {
+        .requests-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .event-card {
+            margin-bottom: 15px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .event-header {
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .event-content p {
+            font-size: 13px;
+        }
+    }
+</style>
+{% endblock %} 

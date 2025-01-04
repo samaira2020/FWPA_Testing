@@ -1,0 +1,205 @@
+{% extends "Base.html" %}
+
+{% block title %}Event Details - Modul University{% endblock %}
+
+{% block content %}
+<div class="events-container">
+    <!-- Event Type Filter -->
+    <div class="filter-section">
+        <h2>Event Details</h2>
+    </div>
+
+    <!-- Events Display -->
+    <div class="events-section">
+        {% if events %}
+            <div class="events-grid">
+                {% for event in events %}
+                    <div class="event-card">
+                        <div class="event-header" style="background-color: 
+                            {% if event.type_of_event == 'Modul Events' %}#bf3029
+                            {% elif event.type_of_event == 'Club Events' %}#28a745
+                            {% elif event.type_of_event == 'External Events' %}#ffc107
+                            {% elif event.type_of_event == 'MCC Events' %}#17a2b8
+                            {% else %}#6c757d{% endif %}">
+                            <h3>{{ event.event_name }}</h3>
+                        </div>
+                        <div class="event-content">
+                            <p><i class="far fa-calendar"></i> <strong>Date:</strong> {% if event.event_date %} {{ event.event_date|format_date }} {% else %} No date specified {% endif %}</p>
+                            <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> {{ event.location }}</p>
+                            <p><i class="fas fa-tag"></i> <strong>Type:</strong> {{ event.type_of_event }}</p>
+                            <p><i class="fas fa-info-circle"></i> <strong>Description:</strong> {{ event.description }}</p>
+                            <p><i class="fas fa-address-card"></i> <strong>Contact:</strong> {{ event.contact_information }}</p>
+                        </div>
+                        <div class="event-actions">
+                            {% if session.get('student_email') or session.get('staff_email') %}
+                                <form method="POST" action="{{ url_for('add_favorite') }}">
+                                    <input type="hidden" name="event_name" value="{{ event.event_name }}">
+                                    <input type="hidden" name="event_date" value="{{ event.event_date }}">
+                                    <input type="hidden" name="category" value="{{ event.type_of_event }}">
+                                    <input type="hidden" name="location" value="{{ event.location }}">
+                                    <input type="hidden" name="description" value="{{ event.description }}">
+                                    <input type="hidden" name="contact_information" value="{{ event.contact_information }}">
+                                    <button type="submit" class="favorite-btn">Add to Favorites</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-events">No events available.</p>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .events-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .events-section {
+        flex: 1;
+        overflow: auto;
+    }
+
+    .filter-section {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .filter-section h2 {
+        color: #bf3029;
+        margin: 0;
+    }
+
+    .events-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .event-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: transform 0.3s;
+    }
+
+    .event-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .event-header {
+        padding: 15px;
+        color: white;
+    }
+
+    .event-header h3 {
+        margin: 0;
+        font-size: 1.2em;
+    }
+
+    .event-content {
+        padding: 15px;
+    }
+
+    .event-content p {
+        margin: 8px 0;
+    }
+
+    .event-footer {
+        padding: 15px;
+        background-color: #f8f9fa;
+    }
+
+    .favorite-button {
+        width: 100%;
+        padding: 8px;
+        background-color: #bf3029;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .favorite-button:hover {
+        background-color: #a62922;
+    }
+
+    .no-events {
+        text-align: center;
+        color: #666;
+        font-size: 1.1em;
+        margin-top: 30px;
+    }
+
+    @media (max-width: 768px) {
+        .events-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .event-actions {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+    }
+
+    .favorite-btn {
+        width: 100%;
+        padding: 8px 16px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: opacity 0.3s;
+    }
+
+    .favorite-btn:hover {
+        opacity: 0.9;
+    }
+
+    @media screen and (max-width: 768px) {
+        .events-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .event-card {
+            margin-bottom: 15px;
+        }
+
+        .event-header h3 {
+            font-size: 16px;
+        }
+
+        .event-content {
+            padding: 12px;
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .event-content p {
+            font-size: 13px;
+        }
+
+        .event-header h3 {
+            font-size: 14px;
+        }
+    }
+</style>
+
+<!-- Add Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "Base.html" %}
+
+{% block title %}Staff Dashboard - Modul University{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/Staff_Dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1>Welcome, {{ staff.Name if staff else "Staff Member" }}</h1>
+
+    <div class="section">
+        <h2>Your Favorite Events</h2>
+        <div class="favorites-grid">
+            {% for event in favourites %}
+            <div class="event-card">
+                <div class="event-header" style="background-color: {{ event.category | get_event_color }}">
+                    {{ event.event_name }}
+                </div>
+                <div class="event-content">
+                    <p>
+                        <span class="label">📅 Date:</span>
+                        {% if event.year and event.month and event.day %}
+                            {{ "%04d-%02d-%02d" | format(event.year, event.month, event.day) | format_date }}
+                        {% else %}
+                            No date specified
+                        {% endif %}
+                    </p>
+                    <p>
+                        <span class="label">📍 Location:</span>
+                        {{ event.location }}
+                    </p>
+                    <p>
+                        <span class="label">🏷️ Category:</span>
+                        {{ event.category }}
+                    </p>
+                    <p>
+                        <span class="label">📝 Description:</span>
+                        {{ event.description }}
+                    </p>
+                    <p>
+                        <span class="label">📧 Contact:</span>
+                        {{ event.contact_information }}
+                    </p>
+                    <div class="card-actions">
+                        <form method="POST" action="{{ url_for('remove_favorite', event_id=event._id) }}" onsubmit="return confirm('Are you sure you want to remove this event from favorites?');">
+                            <button type="submit" class="remove-btn">Remove from Favorites</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <p class="no-favorites">You haven't added any events to your favorites yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Quick Actions</h2>
+        <div class="quick-actions">
+            <a href="{{ url_for('event_details') }}" class="action-btn">Browse Events</a>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %} 
